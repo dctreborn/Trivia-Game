@@ -1,0 +1,17 @@
+html {
+	position: relative;
+	min-height: 100%;
+}
+
+body {
+	padding-bottom: 70px;
+}
+
+.navbar-fixed-bottom {
+	position: absolute;
+}
+
+#footer {
+	float: none;
+	text-align: center;
+}
