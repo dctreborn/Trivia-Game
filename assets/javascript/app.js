@@ -14,5 +14,3 @@ var trivia = {
 	},
 
 }
-
-alert(Math.random());
