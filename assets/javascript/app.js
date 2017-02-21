@@ -104,9 +104,10 @@ var trivia = {
 		trivia.showImage();
 	},
 
-
+	//display next question
 	nextQuery: function() {
 		if (count == questions.length) {
+			trivia.clearTimer();
 			trivia.gameOver();
 		}
 		else {
@@ -123,17 +124,18 @@ var trivia = {
 	},
 
 	updateDisplay: function() {
+		$("#choices").empty();
 		if (gameover == false) {
 			var curQuery = questions[count];
 			//update questions, choices, and timer
-			$("#question").html("#" + count + " " + curQuery);
+			$("#question").html("#" + (count + 1) + " " + curQuery.question);
 			//list answers
 			for (var i = 0; i < curQuery.choices.length; i++) {
 				var btn = $("<button>");
+				btn.addClass("btn btn-default");
 				btn.attr("data-choice", count + 1);
 				btn.attr("type","button");
-				btn.addClass("btn btn-default");
-				btn.text(curQuery);
+				btn.text(curQuery.choices[i]);
 				$("#choices").append(btn);
 			}
 			trivia.updateTimer();
