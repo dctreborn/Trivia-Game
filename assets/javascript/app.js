@@ -8,17 +8,28 @@ var gameover;
 var questions = [];
 
 //question and answer format and trivia database
-var queryPool = [{question: "text",	choices:
-					[{answer: "choice", valid: true},
-					2,3,4]
-	},]
+var queryPool = buildQuery();
 
 //possible question building function
-function buildTrivia(query, array) {
+function addQuery(query, c1, c2, c3, c4) {
 	return {
 		question: query,
-		choices: array
+		choices: [c1,c2,c3,c4],
+		answer: c1
 	}
+}
+
+function buildQuery() {
+	var array = []
+	array.push(addQuery("Who is Cagliostro?",
+		"The cutest alchemist",
+		"An old man",
+		"A smug snake",
+		"A loli"));
+
+
+
+	return array;
 }
 
 //main trivia game object
@@ -81,3 +92,5 @@ var trivia = {
 		game.updateDisplay();
 	}
 }
+
+//get user choice from button pressed
