@@ -106,19 +106,33 @@ var trivia = {
 	},
 
 	updateDisplay: function() {
-		var curQuery = questions[count];
-
-		//update questions, choices, and timer
-		$("#question").html("#" + count + " " + curQuery);
-		for (var i = 0; i < curQuery.choices.length; i++) {
-			var p = $("<p>");
-			p.attr("data-choice", count + 1);
-			p.text(curQuery);
-			$("#choices").append(curQuery)
+		if (gameover == false) {
+			var curQuery = questions[count];
+			//update questions, choices, and timer
+			$("#question").html("#" + count + " " + curQuery);
+			for (var i = 0; i < curQuery.choices.length; i++) {
+				var btn = $("<button>");
+				btn.attr("data-choice", count + 1);
+				btn.attr("type","button");
+				btn.addClass("btn btn-default");
+				btn.text(curQuery);
+				$("#choices").append(btn);
+			}
+			trivia.updateTimer();
 		}
-		trivia.updateTimer();
 		//update results if gameover is true and ask if player wants to continue
-
+		else {
+			$("#question").html("Continue?");
+			for (var i = 0; i < 2; i++) {
+				var array = ["Yes", "No"];
+				var btn = $("<button>");
+				btn.attr("data-choice", array[i]);
+				btn.attr("type","button");
+				btn.addClass("btn btn-default");
+				btn.text(array[i]);
+				$("#choices").append(btn);
+			}
+		}
 		//if yes, initialize
 
 	},
