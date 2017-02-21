@@ -10,6 +10,7 @@ var questions = [];
 
 //question and answer format and trivia database
 var queryPool = buildQuery();
+console.log("Pool:" + queryPool);
 
 //possible question building function
 function addQuery(query, c1, c2, c3, c4, image) {
@@ -49,17 +50,21 @@ var trivia = {
 		count = 0;
 		countdown = 30;
 		gameover = false;
+		trivia.randomize();
+		console.log("Iniliazed");
 	},
 
 	//go to next question in 30 seconds
 	timer: function() {
 		time = setTimeout(function(){
 		trivia.nextQuery();
+		console.log("Time's up");
 		}, 1000 * 30);
 	},
 
 	clearTimer: function() {
 		clearTimeout(time);
+		console.log("Time cleared");
 	},
 
 	//randomize questions pool
@@ -67,6 +72,7 @@ var trivia = {
 		var rand;
 		var length = queryPool.length;
 		var min = Math.min(length, 7);
+		console.log("Randomized");
 
 		for (var i = 0; i < min; i++) {
 			rand = Math.floor(Math.random() * length);
@@ -77,15 +83,25 @@ var trivia = {
 				questions.push(queryPool[rand]);
 			}
 		}
-	}
+	},
 
-	checkAnswer: function() {
+	checkAnswer: function(ans) {
+		var x = questions[count].answer;
+		console.log("answer: " + x);
 		//if answer is correct, increase wins
-
+		if (ans == x) {
+			wins++;
+			console.log("win: " + wins);
+		}
 		//if answer is wrong, increase misses
+		else {
+			misses++;
+			console.log("misses: " + misses);
+		}
 
 		//go to next question
 		trivia.nextQuery();
+		trivia.showImage();
 	},
 
 
@@ -102,6 +118,7 @@ var trivia = {
 			//increase count
 			count++;
 			countdown = 30;
+			console.log("next " + count);
 		}
 	},
 
@@ -110,6 +127,7 @@ var trivia = {
 			var curQuery = questions[count];
 			//update questions, choices, and timer
 			$("#question").html("#" + count + " " + curQuery);
+			//list answers
 			for (var i = 0; i < curQuery.choices.length; i++) {
 				var btn = $("<button>");
 				btn.attr("data-choice", count + 1);
@@ -143,19 +161,31 @@ var trivia = {
 			countdown--;
 			//play sound when 10 sec or less remaining?
 		}, 1000);
-	}
+	},
 
 	showImage: function() {
 		var img = $("<img>");
 		img.attr("src","assets/images/" + questions[count].image);
 		$("#result").html(img);
-	}
+		console.log("image");
+	},
 
 	//gameover sequence
-	gameOver: function {
+	gameOver: function() {
 		gameover = true;
-		game.updateDisplay();
+		trivia.updateDisplay();
+		console.log("gameover");
 	}
 }
 
+trivia.initialize();
+trivia.nextQuery();
+
+//add start sequence
+
 //get user choice from button pressed
+$(".btn").on("click", function() {
+	var value = $(this).attr("data-choice");
+	trivia.checkAnswer(value);
+	trivia.updateDisplay();
+});
