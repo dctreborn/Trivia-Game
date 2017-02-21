@@ -1,6 +1,7 @@
 var hits;
 var misses;
 var time;
+var countdown;
 var count;
 var gameover;
 
@@ -46,6 +47,7 @@ var trivia = {
 		hits = 0;
 		misses = 0;
 		count = 0;
+		countdown = 30;
 		gameover = false;
 	},
 
@@ -64,8 +66,9 @@ var trivia = {
 	randomize: function() {
 		var rand;
 		var length = queryPool.length;
+		var min = Math.min(length, 7);
 
-		for (var i = 0; i < 7; i++) {
+		for (var i = 0; i < min; i++) {
 			rand = Math.floor(Math.random() * length);
 			if (questions.includes(queryPool[rand])) {
 				i--;
@@ -98,17 +101,35 @@ var trivia = {
 			trivia.timer();
 			//increase count
 			count++;
+			countdown = 30;
 		}
 	},
 
 	updateDisplay: function() {
-		//update questions, choices, and timer
+		var curQuery = questions[count];
 
+		//update questions, choices, and timer
+		$("#question").html("#" + count + " " + curQuery);
+		for (var i = 0; i < curQuery.choices.length; i++) {
+			var p = $("<p>");
+			p.attr("data-choice", count + 1);
+			p.text(curQuery);
+			$("#choices").append(curQuery)
+		}
+		trivia.updateTimer();
 		//update results if gameover is true and ask if player wants to continue
 
 		//if yes, initialize
 
 	},
+
+	updateTimer: function() {
+		setInterval(function(){
+			$("#timer").html(countdown + " sec");
+			countdown--;
+			//play sound when 10 sec or less remaining?
+		}, 1000);
+	}
 
 	showImage: function() {
 		var img = $("<img>");
