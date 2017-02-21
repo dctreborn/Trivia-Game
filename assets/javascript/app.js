@@ -62,8 +62,8 @@ var trivia = {
 		}, 1000 * 30);
 	},
 
-	clearTimer: function() {
-		clearTimeout(time);
+	clearTimer: function(t) {
+		clearTimeout(t);
 		console.log("Time cleared");
 	},
 
@@ -87,11 +87,12 @@ var trivia = {
 
 	checkAnswer: function(ans) {
 		var x = questions[count].answer;
+		var y = questions[count].choices[ans];
 		console.log("answer: " + x);
-		//if answer is correct, increase wins
-		if (ans == x) {
-			wins++;
-			console.log("win: " + wins);
+		//if answer is correct, increase hits
+		if (y == x) {
+			hits++;
+			console.log("win: " + hits);
 		}
 		//if answer is wrong, increase misses
 		else {
@@ -100,8 +101,9 @@ var trivia = {
 		}
 
 		//go to next question
-		trivia.nextQuery();
 		trivia.showImage();
+		count++;
+		trivia.nextQuery();
 	},
 
 	//display next question
@@ -114,10 +116,9 @@ var trivia = {
 			//display question and answers
 			trivia.updateDisplay();
 			//clear previous timer and start new one
-			trivia.clearTimer();
+			trivia.clearTimer(time);
 			trivia.timer();
 			//increase count
-			count++;
 			countdown = 30;
 			console.log("next " + count);
 		}
@@ -133,7 +134,7 @@ var trivia = {
 			for (var i = 0; i < curQuery.choices.length; i++) {
 				var btn = $("<button>");
 				btn.addClass("btn btn-default");
-				btn.attr("data-choice", count + 1);
+				btn.attr("data-choice", i);
 				btn.attr("type","button");
 				btn.text(curQuery.choices[i]);
 				$("#choices").append(btn);
@@ -168,7 +169,7 @@ var trivia = {
 	showImage: function() {
 		var img = $("<img>");
 		img.attr("src","assets/images/" + questions[count].image);
-		$("#result").html(img);
+		$("#image").html(img);
 		console.log("image");
 	},
 
@@ -188,6 +189,7 @@ trivia.nextQuery();
 //get user choice from button pressed
 $(".btn").on("click", function() {
 	var value = $(this).attr("data-choice");
+	console.log("Value: " + value);
 	trivia.checkAnswer(value);
 	trivia.updateDisplay();
 });
