@@ -62,7 +62,18 @@ var trivia = {
 
 	//randomize questions pool
 	randomize: function() {
+		var rand;
+		var length = queryPool.length;
 
+		for (var i = 0; i < 7; i++) {
+			rand = Math.floor(Math.random() * length);
+			if (questions.includes(queryPool[rand])) {
+				i--;
+			}
+			else {
+				questions.push(queryPool[rand]);
+			}
+		}
 	}
 
 	checkAnswer: function() {
