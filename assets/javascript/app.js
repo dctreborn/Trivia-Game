@@ -11,23 +11,31 @@ var questions = [];
 var queryPool = buildQuery();
 
 //possible question building function
-function addQuery(query, c1, c2, c3, c4) {
+function addQuery(query, c1, c2, c3, c4, image) {
 	return {
 		question: query,
 		choices: [c1,c2,c3,c4],
-		answer: c1
+		answer: c1,
+		image: image
 	}
 }
 
 function buildQuery() {
 	var array = []
+
 	array.push(addQuery("Who is Cagliostro?",
 		"The cutest alchemist",
 		"An old man",
 		"A smug snake",
-		"A loli"));
+		"A loli",
+		""));
 
-
+	array.push(addQuery("What does Goblin Mage like?",
+		"Shiny things",
+		"Rocks",
+		"Animals",
+		"Magic",
+		""));
 
 	return array;
 }
@@ -50,6 +58,11 @@ var trivia = {
 
 	clearTimer: function() {
 		clearTimeout(time);
+	},
+
+	//randomize questions pool
+	randomize: function() {
+
 	}
 
 	checkAnswer: function() {
@@ -84,6 +97,12 @@ var trivia = {
 
 		//if yes, initialize
 
+	},
+
+	showImage: function() {
+		var img = $("<img>");
+		img.attr("src","assets/images/" + questions[count].image);
+		$("#result").html(img);
 	}
 
 	//gameover sequence
