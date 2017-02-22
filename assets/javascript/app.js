@@ -1,6 +1,7 @@
 var hits;
 var misses;
-var time;
+var time; //internal timeout
+var clock; //visible countdown
 var countdown;
 var count;
 var gameover;
@@ -10,7 +11,6 @@ var questions = [];
 
 //question and answer format and trivia database
 var queryPool = buildQuery();
-console.log("Pool:" + queryPool);
 
 //possible question building function
 function addQuery(query, c1, c2, c3, c4, image) {
@@ -39,6 +39,13 @@ function buildQuery() {
 		"Magic",
 		""));
 
+	array.push(addQuery("Test",
+		"true",
+		"false",
+		"false",
+		"false",
+		""));
+
 	return array;
 }
 
@@ -57,14 +64,15 @@ var trivia = {
 	//go to next question in 30 seconds
 	timer: function() {
 		time = setTimeout(function(){
+		count++;
 		trivia.nextQuery();
-		console.log("Time's up");
+		console.log("Time's up " + count);
 		}, 1000 * 30);
 	},
 
 	clearTimer: function(t) {
 		clearTimeout(t);
-		console.log("Time cleared");
+		console.log("Time cleared " + t);
 	},
 
 	//randomize questions pool
@@ -109,14 +117,17 @@ var trivia = {
 	//display next question
 	nextQuery: function() {
 		if (count == questions.length) {
-			trivia.clearTimer();
+			trivia.clearTimer(time);
+			trivia.clearTimer(clock);
 			trivia.gameOver();
 		}
 		else {
+			//clear previous timer
+			trivia.clearTimer(time);
+			trivia.clearTimer(clock);
 			//display question and answers
 			trivia.updateDisplay();
-			//clear previous timer and start new one
-			trivia.clearTimer(time);
+			//start new timer
 			trivia.timer();
 			//increase count
 			countdown = 30;
@@ -159,7 +170,7 @@ var trivia = {
 	},
 
 	updateTimer: function() {
-		setInterval(function(){
+		clock = setInterval(function(){
 			$("#timer").html(countdown + " sec");
 			countdown--;
 			//play sound when 10 sec or less remaining?
@@ -170,7 +181,6 @@ var trivia = {
 		var img = $("<img>");
 		img.attr("src","assets/images/" + questions[count].image);
 		$("#image").html(img);
-		console.log("image");
 	},
 
 	//gameover sequence
@@ -189,7 +199,6 @@ trivia.nextQuery();
 //get user choice from button pressed
 $(".btn").on("click", function() {
 	var value = $(this).attr("data-choice");
-	console.log("Value: " + value);
+	console.log("button: " + value);
 	trivia.checkAnswer(value);
-	trivia.updateDisplay();
 });
