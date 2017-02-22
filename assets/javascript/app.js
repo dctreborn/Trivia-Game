@@ -57,6 +57,7 @@ var trivia = {
 		count = 0;
 		countdown = 30;
 		gameover = false;
+		questions = [];
 		trivia.randomize();
 		console.log("Iniliazed");
 	},
@@ -151,6 +152,7 @@ var trivia = {
 				$("#choices").append(btn);
 			}
 			trivia.updateTimer();
+			trivia.press();
 		}
 		//update results if gameover is true and ask if player wants to continue
 		else {
@@ -164,6 +166,8 @@ var trivia = {
 				btn.text(array[i]);
 				$("#choices").append(btn);
 			}
+			$("#result").html("Hits: " + hits + " " + "Misses: " + misses);
+			trivia.press();
 		}
 		//if yes, initialize
 
@@ -188,6 +192,25 @@ var trivia = {
 		gameover = true;
 		trivia.updateDisplay();
 		console.log("gameover");
+	},
+
+	press: function () {
+		$(".btn").on("click", function() {
+			var value = $(this).attr("data-choice");
+			console.log("button: " + value);
+			if (gameover == false) {
+				trivia.checkAnswer(value);
+			}
+			else {
+				if (value == "Yes"){
+					trivia.initialize();
+					trivia.nextQuery();
+				}
+				else {
+					//clear screen and thank player for playing
+				}
+			}
+		});
 	}
 }
 
@@ -195,10 +218,10 @@ trivia.initialize();
 trivia.nextQuery();
 
 //add start sequence
-
+/*
 //get user choice from button pressed
 $(".btn").on("click", function() {
 	var value = $(this).attr("data-choice");
 	console.log("button: " + value);
 	trivia.checkAnswer(value);
-});
+});*/
