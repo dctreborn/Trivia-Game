@@ -59,7 +59,6 @@ var trivia = {
 		gameover = false;
 		questions = [];
 		trivia.randomize();
-		console.log("Iniliazed");
 	},
 
 	//go to next question in 30 seconds
@@ -67,13 +66,19 @@ var trivia = {
 		time = setTimeout(function(){
 		count++;
 		trivia.nextQuery();
-		console.log("Time's up " + count);
-		}, 1000 * 30);
+		}, 1000 * 3);
+	},
+
+	updateTimer: function() {
+		clock = setInterval(function(){
+			$("#timer").html(countdown + " sec");
+			countdown--;
+			//play sound when 10 sec or less remaining?
+		}, 1000);
 	},
 
 	clearTimer: function(t) {
 		clearTimeout(t);
-		console.log("Time cleared " + t);
 	},
 
 	//randomize questions pool
@@ -81,7 +86,6 @@ var trivia = {
 		var rand;
 		var length = queryPool.length;
 		var min = Math.min(length, 7);
-		console.log("Randomized");
 
 		for (var i = 0; i < min; i++) {
 			rand = Math.floor(Math.random() * length);
@@ -97,16 +101,13 @@ var trivia = {
 	checkAnswer: function(ans) {
 		var x = questions[count].answer;
 		var y = questions[count].choices[ans];
-		console.log("answer: " + x);
 		//if answer is correct, increase hits
 		if (y == x) {
 			hits++;
-			console.log("win: " + hits);
 		}
 		//if answer is wrong, increase misses
 		else {
 			misses++;
-			console.log("misses: " + misses);
 		}
 
 		//go to next question
@@ -126,13 +127,13 @@ var trivia = {
 			//clear previous timer
 			trivia.clearTimer(time);
 			trivia.clearTimer(clock);
+			countdown = 3;
 			//display question and answers
 			trivia.updateDisplay();
 			//start new timer
+			trivia.updateTimer();
 			trivia.timer();
 			//increase count
-			countdown = 30;
-			console.log("next " + count);
 		}
 	},
 
@@ -151,7 +152,6 @@ var trivia = {
 				btn.text(curQuery.choices[i]);
 				$("#choices").append(btn);
 			}
-			trivia.updateTimer();
 			trivia.press();
 		}
 		//update results if gameover is true and ask if player wants to continue
@@ -169,16 +169,7 @@ var trivia = {
 			$("#result").html("Hits: " + hits + " " + "Misses: " + misses);
 			trivia.press();
 		}
-		//if yes, initialize
 
-	},
-
-	updateTimer: function() {
-		clock = setInterval(function(){
-			$("#timer").html(countdown + " sec");
-			countdown--;
-			//play sound when 10 sec or less remaining?
-		}, 1000);
 	},
 
 	showImage: function() {
@@ -191,13 +182,11 @@ var trivia = {
 	gameOver: function() {
 		gameover = true;
 		trivia.updateDisplay();
-		console.log("gameover");
 	},
 
 	press: function () {
 		$(".btn").on("click", function() {
 			var value = $(this).attr("data-choice");
-			console.log("button: " + value);
 			if (gameover == false) {
 				trivia.checkAnswer(value);
 			}
@@ -218,10 +207,3 @@ trivia.initialize();
 trivia.nextQuery();
 
 //add start sequence
-/*
-//get user choice from button pressed
-$(".btn").on("click", function() {
-	var value = $(this).attr("data-choice");
-	console.log("button: " + value);
-	trivia.checkAnswer(value);
-});*/
