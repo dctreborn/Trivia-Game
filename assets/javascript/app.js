@@ -66,7 +66,7 @@ var trivia = {
 		time = setTimeout(function(){
 		count++;
 		trivia.nextQuery();
-		}, 1000 * 3);
+		}, 1000 * 30);
 	},
 
 	updateTimer: function() {
@@ -127,7 +127,7 @@ var trivia = {
 			//clear previous timer
 			trivia.clearTimer(time);
 			trivia.clearTimer(clock);
-			countdown = 3;
+			countdown = 30;
 			//display question and answers
 			trivia.updateDisplay();
 			//start new timer
@@ -152,6 +152,8 @@ var trivia = {
 				btn.text(curQuery.choices[i]);
 				$("#choices").append(btn);
 			}
+			$("#timer").html(countdown + " sec");
+			countdown--;
 			trivia.press();
 		}
 		//update results if gameover is true and ask if player wants to continue
