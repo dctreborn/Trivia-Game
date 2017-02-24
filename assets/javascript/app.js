@@ -221,7 +221,8 @@ var trivia = {
 	}
 }
 
+//add start sequence
+//theme?
+
 trivia.initialize();
 trivia.nextQuery();
-
-//add start sequence
