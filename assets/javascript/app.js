@@ -59,6 +59,8 @@ var trivia = {
 		gameover = false;
 		questions = [];
 		trivia.randomize();
+		$("#result").empty();
+		$("#image").empty();
 	},
 
 	//go to next question in 30 seconds
@@ -155,14 +157,17 @@ var trivia = {
 				}
 				else {
 					temp.push(rand);
+					var div = $("<div>");
 					var btn = $("<button>");
 					btn.addClass("btn btn-default");
 					btn.attr("data-choice", rand);
 					btn.attr("type","button");
 					btn.text(curQuery.choices[rand]);
-					$("#choices").append(btn);
+					div.append(btn);
+					$("#choices").append(div);
 				}
 			}
+			//initial countdown display
 			$("#timer").html(countdown + " sec");
 			countdown--;
 			trivia.press();
