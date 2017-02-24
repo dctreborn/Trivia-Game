@@ -103,9 +103,8 @@ var trivia = {
 
 	checkAnswer: function(ans) {
 		var x = questions[count].answer;
-		var y = questions[count].choices[ans];
 		//if answer is correct, increase hits
-		if (y == x) {
+		if (ans == x) {
 			hits++;
 		}
 		//if answer is wrong, increase misses
@@ -157,12 +156,13 @@ var trivia = {
 				}
 				else {
 					temp.push(rand);
+					var ans = curQuery.choices[rand];					
 					var div = $("<div>");
 					var btn = $("<button>");
 					btn.addClass("btn btn-default");
-					btn.attr("data-choice", rand);
+					btn.attr("data-choice", ans);
 					btn.attr("type","button");
-					btn.text(curQuery.choices[rand]);
+					btn.text(ans);
 					div.append(btn);
 					$("#choices").append(div);
 				}
