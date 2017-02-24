@@ -150,14 +150,14 @@ var trivia = {
 			//list answers in random order
 			for (var i = 0; i < length; i++) {
 				rand = Math.floor(Math.random() * length);
-				if (temp.includes(curQuery.choices[rand])) {
+				if (temp.includes(rand)) {
 					i--;
 				}
 				else {
-					temp.push(curQuery.choices[rand]);
+					temp.push(rand);
 					var btn = $("<button>");
 					btn.addClass("btn btn-default");
-					btn.attr("data-choice", i);
+					btn.attr("data-choice", rand);
 					btn.attr("type","button");
 					btn.text(curQuery.choices[rand]);
 					$("#choices").append(btn);
