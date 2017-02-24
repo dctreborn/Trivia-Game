@@ -42,8 +42,8 @@ function buildQuery() {
 	array.push(addQuery("Test",
 		"true",
 		"false",
-		"false",
-		"false",
+		"fse",
+		"fale",
 		""));
 
 	return array;
@@ -65,6 +65,7 @@ var trivia = {
 	timer: function() {
 		time = setTimeout(function(){
 		count++;
+		misses++;
 		trivia.nextQuery();
 		}, 1000 * 30);
 	},
@@ -141,16 +142,26 @@ var trivia = {
 		$("#choices").empty();
 		if (gameover == false) {
 			var curQuery = questions[count];
+			var temp = [];
+			var length = curQuery.choices.length;
+			var rand;
 			//update questions, choices, and timer
 			$("#question").html("#" + (count + 1) + " " + curQuery.question);
-			//list answers
-			for (var i = 0; i < curQuery.choices.length; i++) {
-				var btn = $("<button>");
-				btn.addClass("btn btn-default");
-				btn.attr("data-choice", i);
-				btn.attr("type","button");
-				btn.text(curQuery.choices[i]);
-				$("#choices").append(btn);
+			//list answers in random order
+			for (var i = 0; i < length; i++) {
+				rand = Math.floor(Math.random() * length);
+				if (temp.includes(curQuery.choices[rand])) {
+					i--;
+				}
+				else {
+					temp.push(curQuery.choices[rand]);
+					var btn = $("<button>");
+					btn.addClass("btn btn-default");
+					btn.attr("data-choice", i);
+					btn.attr("type","button");
+					btn.text(curQuery.choices[rand]);
+					$("#choices").append(btn);
+				}
 			}
 			$("#timer").html(countdown + " sec");
 			countdown--;
