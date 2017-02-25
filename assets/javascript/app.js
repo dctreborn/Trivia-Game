@@ -3,6 +3,7 @@ var misses;
 var time; //internal timeout
 var clock; //visible countdown
 var countdown;
+var maxTime;
 var count;
 var gameover;
 
@@ -55,7 +56,8 @@ var trivia = {
 		hits = 0;
 		misses = 0;
 		count = 0;
-		countdown = 30;
+		maxTime = 30;
+		countdown = maxTime;
 		gameover = false;
 		questions = [];
 		trivia.randomize();
@@ -63,22 +65,22 @@ var trivia = {
 		$("#image").empty();
 	},
 
-	//go to next question in 30 seconds
+	//go to next question in maxTime seconds
 	timer: function() {
 		time = setTimeout(function(){
+		trivia.showImage();
 		count++;
 		misses++;
 		trivia.nextQuery();
-		}, 1000 * 30);
+		}, 1000 * (maxTime + 1) );
 	},
 
 	updateTimer: function() {
 		clock = setInterval(function(){
 			trivia.updateProgress();
-			$("#timer").html(countdown + " sec");
-			countdown--;
+			countdown = (countdown - 0.1).toFixed(1);
 			//play sound when 10 sec or less remaining?
-		}, 1000);
+		}, 100);
 	},
 
 	clearTimer: function(t) {
@@ -130,7 +132,7 @@ var trivia = {
 			//clear previous timer
 			trivia.clearTimer(time);
 			trivia.clearTimer(clock);
-			countdown = 30;
+			countdown = maxTime;
 			//display question and answers
 			trivia.updateDisplay();
 			//start new timer
@@ -170,8 +172,7 @@ var trivia = {
 			}
 			//initial countdown display
 			trivia.createProgress();
-			$("#timer").html(countdown + " sec");
-			countdown--;
+			countdown -= 0.1;
 			trivia.press();
 		}
 		//update results if gameover is true and ask if player wants to continue
@@ -210,6 +211,7 @@ var trivia = {
 
 	updateProgress: function () {
 		var id = $(".progress-bar");
+		var meter = Math.max(countdown / maxTime, 0) * 100;
 		if (countdown == 10) {
 			id.removeClass("progress-bar-warning");
 			id.addClass("progress-bar-danger");
@@ -218,7 +220,8 @@ var trivia = {
 			id.removeClass("progress-bar-sucess");
 			id.addClass("progress-bar-warning");
 		}
-		id.css("width", (countdown / 30) * 100 + "%" )
+		id.attr("aria-valuenow", meter);
+		id.css("width", meter + "%" )
 	},
 
 	showImage: function() {
