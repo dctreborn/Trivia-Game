@@ -52,6 +52,18 @@ function buildQuery() {
 
 //main trivia game object
 var trivia = {
+	start: function() {
+		var btn = $("<button>");
+		$("#question").html("Press the button to start.");
+		btn.attr("id", "start");
+		btn.text("START");
+		$("#choices").html(btn);
+		$("#start").on("click", function(){
+			trivia.initialize();
+			trivia.nextQuery();
+		});
+	},
+
 	initialize: function() {
 		hits = 0;
 		misses = 0;
@@ -200,7 +212,7 @@ var trivia = {
 		div.attr("id","ptimer");
 		$("#progress").html(div);
 		div = $("<div>");
-		div.addClass("progress-bar progress-bar-success progress-bar-striped");
+		div.addClass("progress-bar progress-bar-success");
 		div.attr("role","progressbar");
 		div.attr("aria-valuenow", 100);
 		div.attr("aria-valuemin", 0);
@@ -256,8 +268,7 @@ var trivia = {
 	}
 }
 
-//add start sequence
-//theme?
+//add start button sequence
+//advance to next question after 2 seconds of showing image, no click
 
-trivia.initialize();
-trivia.nextQuery();
+trivia.start();
