@@ -74,6 +74,7 @@ var trivia = {
 
 	updateTimer: function() {
 		clock = setInterval(function(){
+			trivia.updateProgress();
 			$("#timer").html(countdown + " sec");
 			countdown--;
 			//play sound when 10 sec or less remaining?
@@ -168,6 +169,7 @@ var trivia = {
 				}
 			}
 			//initial countdown display
+			trivia.createProgress();
 			$("#timer").html(countdown + " sec");
 			countdown--;
 			trivia.press();
@@ -190,6 +192,35 @@ var trivia = {
 
 	},
 
+	//create progress bar used as timer
+	createProgress: function() {
+		var div = $("<div>");
+		div.addClass("progress");
+		div.attr("id","ptimer");
+		$("#progress").html(div);
+		div = $("<div>");
+		div.addClass("progress-bar progress-bar-success progress-bar-striped");
+		div.attr("role","progressbar");
+		div.attr("aria-valuenow", 100);
+		div.attr("aria-valuemin", 0);
+		div.attr("aria-valuemax", 100);
+		div.css("width", "100%");
+		$("#ptimer").html(div);
+	},
+
+	updateProgress: function () {
+		var id = $(".progress-bar");
+		if (countdown == 10) {
+			id.removeClass("progress-bar-warning");
+			id.addClass("progress-bar-danger");
+		}
+		else if (countdown == 20) {
+			id.removeClass("progress-bar-sucess");
+			id.addClass("progress-bar-warning");
+		}
+		id.css("width", (countdown / 30) * 100 + "%" )
+	},
+
 	showImage: function() {
 		var img = $("<img>");
 		img.attr("src","assets/images/" + questions[count].image);
@@ -202,6 +233,7 @@ var trivia = {
 		trivia.updateDisplay();
 	},
 
+	//detect clicks
 	press: function () {
 		$(".btn").on("click", function() {
 			var value = $(this).attr("data-choice");
