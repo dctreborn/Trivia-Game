@@ -83,7 +83,8 @@ var trivia = {
 		trivia.showImage();
 		count++;
 		misses++;
-		trivia.nextQuery();
+		trivia.pause();
+		//trivia.nextQuery();
 		}, 1000 * (maxTime + 1) );
 	},
 
@@ -97,6 +98,15 @@ var trivia = {
 
 	clearTimer: function(t) {
 		clearTimeout(t);
+	},
+
+	pause: function (){
+		trivia.clearTimer(time);
+		trivia.clearTimer(clock);
+		var pause = setTimeout(function(){
+			trivia.clearTimer(pause);
+			trivia.nextQuery();
+		}, 3000);
 	},
 
 	//randomize questions pool
@@ -129,8 +139,9 @@ var trivia = {
 
 		//go to next question
 		trivia.showImage();
+		trivia.pause();
 		count++;
-		trivia.nextQuery();
+		//trivia.nextQuery();
 	},
 
 	//display next question
@@ -150,7 +161,6 @@ var trivia = {
 			//start new timer
 			trivia.updateTimer();
 			trivia.timer();
-			//increase count
 		}
 	},
 
@@ -240,6 +250,7 @@ var trivia = {
 		var img = $("<img>");
 		img.attr("src","assets/images/" + questions[count].image);
 		$("#image").html(img);
+
 	},
 
 	//gameover sequence
@@ -268,7 +279,6 @@ var trivia = {
 	}
 }
 
-//add start button sequence
 //advance to next question after 2 seconds of showing image, no click
 
 trivia.start();
