@@ -2,7 +2,7 @@ var hits;
 var misses;
 var time; //internal timeout
 var clock; //visible countdown
-var countdown;
+var countdown; //progress bar countdown
 var maxTime;
 var count;
 var gameover;
@@ -84,7 +84,6 @@ var trivia = {
 		count++;
 		misses++;
 		trivia.pause();
-		//trivia.nextQuery();
 		}, 1000 * (maxTime + 1) );
 	},
 
@@ -141,7 +140,6 @@ var trivia = {
 		trivia.showImage();
 		trivia.pause();
 		count++;
-		//trivia.nextQuery();
 	},
 
 	//display next question
@@ -278,7 +276,5 @@ var trivia = {
 		});
 	}
 }
-
-//advance to next question after 2 seconds of showing image, no click
 
 trivia.start();
