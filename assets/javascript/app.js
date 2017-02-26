@@ -87,8 +87,8 @@ var trivia = {
 	//go to next question in maxTime seconds
 	timer: function() {
 		time = setTimeout(function(){
-		$("#question").empty();
 		$("#choices").empty();
+		$("#question").html("Time's up! It's " + questions[count].answer + "!")
 		trivia.showImage();
 		count++;
 		misses++;
@@ -136,17 +136,17 @@ var trivia = {
 
 	checkAnswer: function(ans) {
 		var x = questions[count].answer;
+		$("#choices").empty();
 		//if answer is correct, increase hits
 		if (ans == x) {
 			hits++;
+			$("#question").html("You're right! It's " + x + "!")
 		}
 		//if answer is wrong, increase misses
 		else {
-			misses++;			
+			misses++;
+			$("#question").html("Sorry! It's " + x + "!")			
 		}
-
-		$("#question").empty();
-		$("#choices").empty();
 		//go to next question
 		trivia.showImage();
 		trivia.pause();
