@@ -75,11 +75,26 @@ function buildQuery() {
 		"Patlabor",
 		"odaiba.jpg"));
 
-	//array.push(addQuery(""));
+	array.push(addQuery("Which of these were originally created in the US?",
+		"Ninja Slayer",
+		"KonoSuba",
+		"Votoms",
+		"Madoka Magica",
+		"ninja-slayer.jpg"));
 
-	//array.push(addQuery(""));
+	array.push(addQuery("Which of these topped the NY Times manga bestseller back in 2013?",
+		"Monster Musume",
+		"Gintama",
+		"Negima!",
+		"40 Shades of Gray",
+		"daily-life.png"));
 
-	//array.push(addQuery(""));
+	array.push(addQuery("Which studio made movies such as Princess Mononke, Howl's Moving Castle, and Kiki's Delivery Service?",
+		"Studio Ghibli",
+		"Studio Sunrise",
+		"SHAFT",
+		"Studio Deen",
+		"ghibli.jpg"));
 
 	//array.push(addQuery(""));
 
@@ -169,7 +184,7 @@ var trivia = {
 	randomize: function() {
 		var rand;
 		var length = queryPool.length;
-		var min = Math.min(length, 7);
+		var min = Math.min(length, 5);
 
 		for (var i = 0; i < min; i++) {
 			rand = Math.floor(Math.random() * length);
@@ -336,7 +351,8 @@ var trivia = {
 					trivia.nextQuery();
 				}
 				else {
-					//clear screen and thank player for playing
+					$("#result").html("Thank you for playing!");
+					trivia.start();
 				}
 			}
 		});
