@@ -5,6 +5,38 @@ html {
 
 body {
 	padding-bottom: 70px;
+	background: url(../images/bg.jpg);
+}
+
+.jumbotron {
+	background: url(../images/bg2.jpg) center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	overflow: hidden;
+	text-shadow: -3px 0 #fff, 0 3px #fff, 3px 0 #fff, 0 -3px #fff;
+}
+
+.btn {
+	color: #333333;
+	background: transparent;
+}
+
+.progress {
+    position: relative;
+}
+
+.progress-bar {
+    z-index: 1;
+    position: absolute;
+}
+
+.progress span {
+    position: absolute;
+    top: 0;
+    z-index: 2;
+    color: black;
+    text-align: center;
+    width: 100%;
 }
 
 #image img {

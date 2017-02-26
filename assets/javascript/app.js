@@ -47,7 +47,7 @@ function buildQuery() {
 		"Strong Bacchus",
 		"votoms.jpg"));
 
-	array.push(addQuery("What is the name of virtual youtuber for A.I. Channel?",
+	array.push(addQuery("What is the name of the virtual youtuber for A.I. Channel?",
 		"Kizuna Ai",
 		"Hatsune Miku",
 		"KAITO",
@@ -93,7 +93,7 @@ var trivia = {
 		count++;
 		misses++;
 		trivia.pause();
-		}, 1000 * (maxTime + 1) );
+		}, 1000 * maxTime);
 	},
 
 	updateTimer: function() {
@@ -114,7 +114,7 @@ var trivia = {
 		var pause = setTimeout(function(){
 			trivia.clearTimer(pause);
 			trivia.nextQuery();
-		}, 3000);
+		}, 5000);
 	},
 
 	//randomize questions pool
@@ -228,6 +228,7 @@ var trivia = {
 	//create progress bar used as timer
 	createProgress: function() {
 		var div = $("<div>");
+		var span = $("<span>");
 		div.addClass("progress");
 		div.attr("id","ptimer");
 		$("#progress").html(div);
@@ -238,12 +239,16 @@ var trivia = {
 		div.attr("aria-valuemin", 0);
 		div.attr("aria-valuemax", 100);
 		div.css("width", "100%");
-		$("#ptimer").html(div);
+		span.text(countdown + "s");
+		span.attr("id","clock");
+		$("#ptimer").html(div);	
+		$("#ptimer").append(span);	
+
 	},
 
 	updateProgress: function () {
 		var id = $(".progress-bar");
-		var meter = Math.max(countdown / maxTime, 0) * 100;
+		var meter = (Math.max(countdown / maxTime, 0) * 100).toFixed(1);
 		if (countdown == 10) {
 			id.removeClass("progress-bar-warning");
 			id.addClass("progress-bar-danger");
@@ -253,7 +258,8 @@ var trivia = {
 			id.addClass("progress-bar-warning");
 		}
 		id.attr("aria-valuenow", meter);
-		id.css("width", meter + "%" )
+		id.css("width", meter + "%" );
+		$("#clock").text(countdown + "s");
 	},
 
 	showImage: function() {
