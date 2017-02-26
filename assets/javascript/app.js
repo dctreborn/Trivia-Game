@@ -52,7 +52,55 @@ function buildQuery() {
 		"Hatsune Miku",
 		"KAITO",
 		"Yowane Haku",
-		"ai_channel.png"))
+		"ai_channel.png"));
+
+	array.push(addQuery("In Miss Kobayashi's Maid Dragon, which one is named after an Ainu god?",
+		"Kanna Kamui",
+		"Tooru",
+		"Quetzacotl",
+		"Fafnir",
+		"maid-dragon.jpg"));
+
+	array.push(addQuery("In the anime adaptation of Granblue Fantasy, which main character does not appear?",
+		"Djeeta",
+		"Gran",
+		"Lyria",
+		"Vyrn",
+		"granblue.png"));
+
+	array.push(addQuery("Based on a Studio Sunrise title, which series's mech was built to scale in Odaiba, Japan?",
+		"Mobile Suit Gundam",
+		"Tengen Toppa Gurren Lagan",
+		"GaoGaiGar",
+		"Patlabor",
+		"odaiba.jpg"));
+
+	//array.push(addQuery(""));
+
+	//array.push(addQuery(""));
+
+	//array.push(addQuery(""));
+
+	//array.push(addQuery(""));
+
+	//array.push(addQuery(""));
+
+	//array.push(addQuery(""));
+
+	//array.push(addQuery(""));
+
+	//array.push(addQuery(""));
+
+	//array.push(addQuery(""));
+
+	//array.push(addQuery(""));
+
+	//array.push(addQuery(""));
+
+	//array.push(addQuery(""));
+
+	//array.push(addQuery(""));
+
 
 	return array;
 }
