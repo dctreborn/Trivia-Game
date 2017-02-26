@@ -31,7 +31,7 @@ function buildQuery() {
 		"Kirito and Asuna",
 		"Lina and Gourry",
 		"Leonardo, Donatello, Raphael, and Michaelangelo",
-		"konosuba.png"));
+		"konosuba.PNG"));
 
 	array.push(addQuery("In Madoka Magica, what is the name of the creature that makes a contract with the girls?",
 		"Kyubey",
@@ -52,7 +52,7 @@ function buildQuery() {
 		"Hatsune Miku",
 		"KAITO",
 		"Yowane Haku",
-		"ai_channel.png"));
+		"ai_channel.PNG"));
 
 	array.push(addQuery("In Miss Kobayashi's Maid Dragon, which one is named after an Ainu god?",
 		"Kanna Kamui",
@@ -95,27 +95,6 @@ function buildQuery() {
 		"SHAFT",
 		"Studio Deen",
 		"ghibli.jpg"));
-
-	//array.push(addQuery(""));
-
-	//array.push(addQuery(""));
-
-	//array.push(addQuery(""));
-
-	//array.push(addQuery(""));
-
-	//array.push(addQuery(""));
-
-	//array.push(addQuery(""));
-
-	//array.push(addQuery(""));
-
-	//array.push(addQuery(""));
-
-	//array.push(addQuery(""));
-
-	//array.push(addQuery(""));
-
 
 	return array;
 }
