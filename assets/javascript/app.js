@@ -26,26 +26,33 @@ function addQuery(query, c1, c2, c3, c4, image) {
 function buildQuery() {
 	var array = []
 
-	array.push(addQuery("Who is Cagliostro?",
-		"The cutest alchemist",
-		"An old man",
-		"A smug snake",
-		"A loli",
-		""));
+	array.push(addQuery("In KonoSuba, what are the names of the main characters?",
+		"Aqua, Kazuma, Megumin, and Darkness",
+		"Kirito and Asuna",
+		"Lina and Gourry",
+		"Leonardo, Donatello, Raphael, and Michaelangelo",
+		"konosuba.png"));
 
-	array.push(addQuery("What does Goblin Mage like?",
-		"Shiny things",
-		"Rocks",
-		"Animals",
-		"Magic",
-		""));
+	array.push(addQuery("In Madoka Magica, what is the name of the creature that makes a contract with the girls?",
+		"Kyubey",
+		"Juubey",
+		"Hachibey",
+		"Sanbey",
+		"madoka.jpg"));
 
-	array.push(addQuery("Test",
-		"true",
-		"false",
-		"fse",
-		"fale",
-		""));
+	array.push(addQuery("Which of these is the basic model mech in Votoms?",
+		"Scopedog",
+		"Zaku",
+		"Purple Bear",
+		"Strong Bacchus",
+		"votoms.jpg"));
+
+	array.push(addQuery("What is the name of virtual youtuber for A.I. Channel?",
+		"Kizuna Ai",
+		"Hatsune Miku",
+		"KAITO",
+		"Yowane Haku",
+		"ai_channel.png"))
 
 	return array;
 }
@@ -80,6 +87,8 @@ var trivia = {
 	//go to next question in maxTime seconds
 	timer: function() {
 		time = setTimeout(function(){
+		$("#question").empty();
+		$("#choices").empty();
 		trivia.showImage();
 		count++;
 		misses++;
@@ -133,9 +142,11 @@ var trivia = {
 		}
 		//if answer is wrong, increase misses
 		else {
-			misses++;
+			misses++;			
 		}
 
+		$("#question").empty();
+		$("#choices").empty();
 		//go to next question
 		trivia.showImage();
 		trivia.pause();
@@ -160,6 +171,7 @@ var trivia = {
 			trivia.updateTimer();
 			trivia.timer();
 		}
+		$("#image").empty();
 	},
 
 	updateDisplay: function() {

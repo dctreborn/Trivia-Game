@@ -7,6 +7,10 @@ body {
 	padding-bottom: 70px;
 }
 
+#image img {
+	width: 100%;
+}
+
 .navbar-fixed-bottom {
 	position: absolute;
 }
