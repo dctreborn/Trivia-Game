@@ -52,3 +52,8 @@ body {
 	float: none;
 	text-align: center;
 }
+
+#git {
+	width: 2em;
+	height: 2em;
+}
